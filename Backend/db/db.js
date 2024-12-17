@@ -1,13 +1,13 @@
 import mongoose from 'mongoose'
 
-async function connectDB(){
+function connectDB(){
     try {
-        await mongoose.connect(`${process.env.DB_Connect}`)
+        mongoose.connect(`${process.env.DB_Connect}`)
         .then(() => {
             console.log('Connect to DB');        
         })
         .catch((err) => {
-            console.log(err);         
+            console.log(err, 'Error connecting to in catch box');         
         })
 
     } catch (error) {
