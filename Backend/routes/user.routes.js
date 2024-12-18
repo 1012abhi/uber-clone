@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { body } from 'express-validator'
-import {registerUser, loginUser} from '../controller/user.controller.js'
+import {registerUser, loginUser, getUserProfile, logoutUser} from '../controller/user.controller.js'
+import { authUser } from "../middleware/auth.middleware.js";
 
 const router = Router()
 
@@ -16,7 +17,9 @@ router.post('/login', [
     body('email').isEmail().withMessage('Invalid email'),
     body('password').isLength({min: 6}).withMessage('invalid password'),
 ],
-loginUser
+    loginUser
 )
 
+router.get('/profile', authUser, getUserProfile)
+router.get('/logout', authUser, logoutUser)
 export default router
