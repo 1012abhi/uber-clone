@@ -4,7 +4,7 @@
 # User Registration Endpoint
 
 ## Endpoint
-`POST /users/register`
+`POST /api/users/register`
 
 ## Description
 This endpoint allows new users to register by providing their details. Upon successful registration, the user will receive a confirmation response.
@@ -22,25 +22,25 @@ The request body must be a JSON object containing the following fields:
 | `username`   | string   | Yes      | The desired username for the account. Must be unique. |
 | `email`      | string   | Yes      | The user's email address. Must be a valid email format. |
 | `password`   | string   | Yes      | The password for the account. Must be at least 8 characters long. |
-| `firstName`  | string   | No       | The user's first name.               |
-| `lastName`   | string   | No       | The user's last name.                |
+| `firstName`  | string   | Yes       | The user's first name.               |
+| `lastName`   | string   | Yes       | The user's last name.                |
 
 ### Example Request
 
 {
-  "username": "john_doe",
+  "username": {"firstName": "John",
+  "lastName": "Doe"},
   "email": "john.doe@example.com",
-  "password": "securePassword123",
-  "firstName": "John",
-  "lastName": "Doe"
+  "password": "securePassword",
+  
 }
 
 
-### Response 
+# Response 
 
-## Success Response
+### Success Response
 
-# Status Code: 201 Created
+### Status Code: 201 Created
 
 ### Response Body:
 
@@ -55,9 +55,9 @@ The request body must be a JSON object containing the following fields:
   }
 }
 
-### Error Responses
+# Error Responses
 
-# Status Code: 400 Bad Request
+### Status Code: 400 Bad Request
 
 ### Response Body:
 
@@ -65,7 +65,7 @@ The request body must be a JSON object containing the following fields:
   "error": "Validation error. Please check your input."
 }
 
-# Status Code: 409 Conflict
+## Status Code: 409 Conflict
 
 ### Response Body:
 
@@ -73,7 +73,7 @@ The request body must be a JSON object containing the following fields:
   "error": "Username or email already exists."
 }
 
-# Status Code: 500 Internal Server Error
+## Status Code: 500 Internal Server Error
 
 ### Response Body:
 
