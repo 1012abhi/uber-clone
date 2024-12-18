@@ -209,3 +209,89 @@ Bearer <token> (The token should be included in the Authorization header)
   "message": "Unauthorized"
 }
 ```
+
+
+## Register Captain
+
+**Endpoint:** `/api/captains/register`  
+**HTTP Method:** `POST`  
+**Content-Type:** `application/json`
+
+### Description
+This endpoint allows a new captain to register by providing their personal and vehicle information. It validates the input data and creates a new captain record in the database.
+
+### Request Body
+The request body must be a JSON object containing the following fields:
+
+```json
+{
+    "fullname": {
+        "firstname": "string (required, min length: 3)",
+        "lastname": "string (optional, min length: 3)"
+    },
+    "email": "string (required, must be a valid email)",
+    "password": "string (required, min length: 3)",
+    "vehicle": {
+        "color": "string (required, min length: 3)",
+        "plate": "string (required, min length: 3)",
+        "capacity": "integer (required, minimum: 1)",
+        "vehicleType": "string (required, must be one of: 'car', 'motorcycle', 'auto')"
+    }
+}
+```
+
+### Example Request
+```json
+curl -X POST http://localhost:3000/api/captains/register \
+-H "Content-Type: application/json" \
+-d '{
+    "fullname": {
+        "firstname": "John",
+        "lastname": "Doe"
+    },
+    "email": "john.doe@example.com",
+    "password": "securepassword",
+    "vehicle": {
+        "color": "red",
+        "plate": "XYZ 1234",
+        "capacity": 4,
+        "vehicleType": "car"
+    }
+}'
+```
+
+
+# Responses
+**201 Created:** Returns a JSON object containing the generated authentication token and the captain's details.
+```json
+{
+    "token": "string",
+    "captain": {
+        "fullname": {
+            "firstname": "string",
+            "lastname": "string"
+        },
+        "email": "string",
+        "vehicle": {
+            "color": "string",
+            "plate": "string",
+            "capacity": "integer",
+            "vehicleType": "string"
+        },
+        "status": "string"
+    }
+}
+```
+**400 Bad Request:** If validation fails or if a captain with the provided email already exists.
+
+```json
+{
+    "errors": [
+        {
+            "msg": "string",
+            "param": "string",
+            "location": "string"
+        }
+    ]
+}
+```
