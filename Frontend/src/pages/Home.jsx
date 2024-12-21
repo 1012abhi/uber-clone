@@ -11,7 +11,7 @@ function Home() {
         {/* <img src="https://images.pexels.com/photos/2481670/pexels-photo-2481670.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" /> */}
         
 
-          <div className=' bg-cover bg-center bg-[url(https://images.pexels.com/photos/2422270/pexels-photo-2422270.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)] flex justify-between flex-col h-screen w-full bg-red-400 '>
+          <div className=' bg-cover bg-center bg-[url(https://images.pexels.com/photos/2422270/pexels-photo-2422270.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)] flex justify-between flex-col h-screen w-full'>
             
             <img 
             className='w-20 h-20 ml-5'

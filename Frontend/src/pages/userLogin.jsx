@@ -12,7 +12,6 @@ function userLogin() {
       email,
       password
     })
-    console.log(userData);
     
     setEmail('')
     setPassword('')
@@ -29,7 +28,7 @@ function userLogin() {
         <form onSubmit={(e) => {submitHandler(e)}}>
           <h3 className='text-lg font-medium mb-2'>What's your email</h3>
           <input 
-          className='bg-[#eeee] rounded px-4 py-2 w-full text-lg mb-7'
+          className='bg-[#eeee] rounded px-4 py-2 w-full mb-6 text-base font-semibold'
           type="email" placeholder="email@example.com" required 
           value={email}
           onChange={(e) => {setEmail(e.target.value)}}
@@ -37,7 +36,7 @@ function userLogin() {
           
           <h3 className='text-lg font-medium mb-2'>Enter Password</h3>
           <input 
-          className='bg-[#eeee] rounded px-4 py-2 w-full text-lg mb-7'
+          className='bg-[#eeee] rounded px-4 py-2 w-full mb-6 text-base font-semibold'
           type="password" placeholder="password" required 
           value={password}
           onChange={(e) => {setPassword(e.target.value)}}
