@@ -18,9 +18,8 @@ function Home() {
             src="https://brandeps.com/logo-download/U/Uber-logo-02.png" alt="" />
             <div className='bg-white px-6 py-3 pb-6'>
               <h2 className='text-2xl font-bold mb-2'>Get Started with Uber</h2>
-              <Link to='/userlogin' className='flex items-center justify-center bg-black text-white  text-center px-4 py-3 rounded'>Continue</Link>
+              <Link to='/userlogin' className='flex items-center justify-center bg-black text-white text-center px-4 py-3 rounded font-semibold'>Continue</Link>
             </div>
-          
           </div>
         </div>
     </div>
