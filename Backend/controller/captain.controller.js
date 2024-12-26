@@ -12,7 +12,6 @@ const registerCaptain = async (req, res, next) => {
     }
 
     const { fullname, email, password, vehicle } = req.body;
-    console.log(req.body);
     
     const isCaptainAlreadyExist = await captainModel.findOne({email})
     if (isCaptainAlreadyExist) {
