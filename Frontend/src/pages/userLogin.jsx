@@ -72,7 +72,7 @@ function userLogin() {
       <div>
         <Link 
         to='/captainlogin'
-        className='flex items-center justify-center bg-[#111] hover:bg-[#73c961] text-white rounded px-4 py-2 w-full text-lg font-semibold mb-7'
+        className='flex items-center justify-center bg-[#111] hover:bg-[#32ff7e] text-white rounded px-4 py-2 w-full text-lg font-semibold mb-7'
         >Sign in as Captain</Link>
       </div>
     </div>
