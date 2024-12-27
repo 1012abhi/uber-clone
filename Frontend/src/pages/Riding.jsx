@@ -4,7 +4,7 @@ const Riding = () => {
   return (
     <div className='h-screen'>
         <Link to={'/userhome'} className='fixed h-10 w-10 bg-white flex items-center justify-center rounded-full ring-2 ring-slate-900 right-2 top-2'>
-          <i className="ri-home-5-line"></i>
+          <i className="text-lg font-medium ri-home-5-line"></i>
         </Link>
         <div className='h-1/2'>
             <img className='w-full h-full object-cover' src="https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif" alt="" />
