@@ -118,7 +118,7 @@ function UserHome() {
           <form onSubmit={(e) => {submitHandler(e)}}> 
             <div className='line absolute h-16 w-1 top-[45%] left-10 bg-gray-900 rounded'></div>
             <input onClick={() => {setPanelOpen(true)}} value={pickup} onChange={(e) => {setPickup(e.target.value)}} className='bg-[#eeee] px-12 p-2 text-lg rounded-lg w-full mt-5' type="text" placeholder='Add a pick-up location' />
-            <input onClick={() => {setPanelOpen(true)}} value={destination} onChange={(e) => {setDestination(e.target.value)}}className='bg-[#eeee] px-12 p-2 text-lg rounded-lg w-full mt-5' type="text" placeholder='Enter your destination' />
+            <input onClick={() => {setPanelOpen(true)}} value={destination} onChange={(e) => {setDestination(e.target.value)}} className='bg-[#eeee] px-12 p-2 text-lg rounded-lg w-full mt-5' type="text" placeholder='Enter your destination' />
           </form>
         </div>        
         <div ref={panelRef} className='bg-white '>

@@ -41,11 +41,20 @@ const ConfirmRidePopUp = ({setConfirmRidePopupPanel,setRidePopupPanel}) => {
                   </div> 
               </div>
           </div>
-          <Link to={'/captain-riding'} className='flex justify-center w-full mt-5 bg-[#32ff7e] text-white font-semibold p-3 rounded-lg'>Confirm</Link>
-          <button onClick={() => {
-              setConfirmRidePopupPanel(false);
-              setRidePopupPanel(false);
-          }} className='w-full mt-1 bg-red-600 text-white font-semibold p-3 rounded-lg'>Cancel</button>
+          
+          <div className='w-full mt-6'>
+           <form onSubmit={(e) => {
+            submitHandler(e)
+           }}>
+                <input className='bg-[#eeee] px-6 py-4 p-2 font-mono text-lg rounded-lg w-full mt-5' type="number" placeholder='Enter OTP' />
+
+            <Link to={'/captain-riding'} className='flex justify-center w-full mt-5 bg-[#32ff7e] text-white font-semibold p-3 rounded-lg'>Confirm</Link>
+                <button onClick={() => {
+                    setConfirmRidePopupPanel(false);
+                    setRidePopupPanel(false);
+                }} className='w-full mt-2 bg-red-600 text-white font-semibold p-3 rounded-lg'>Cancel</button>
+           </form>
+          </div>
       </div>
   </div>
   )
