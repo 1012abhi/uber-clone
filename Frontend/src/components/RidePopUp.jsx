@@ -5,9 +5,9 @@ const RidePopUp = ({setRidePopupPanel,setConfirmRidePopupPanel}) => {
     <div>
       <h5 className='p-1 w-[93%] text-center absolute top-0'
       onClick={() => {setRidePopupPanel(false)}}><i className="text-3xl text-gray-200 ri-arrow-down-wide-fill"></i></h5>
-        <h3 className='text-2xl font-semibold mb-5'>New Ride Availabele!</h3>
+        <h3 className='text-2xl font-semibold mb-5 '>New Ride Available!</h3>
 
-        <div className='flex items-center justify-between bg-yellow-400 rounded-lg p-3 m-4'>
+        <div className='flex items-center justify-between bg-yellow-400 rounded-lg p-2'>
             <div className='flex items-center gap-3'>
                 <img className='h-10 w-10 rounded-full object-cover' src="https://picsum.photos/id/237/536/354" alt="" />
                 <h2 className='text-lg font-medium'>Kutte ka Mut</h2>
@@ -40,12 +40,16 @@ const RidePopUp = ({setRidePopupPanel,setConfirmRidePopupPanel}) => {
                     </div> 
                 </div>
             </div>
-            <button onClick={() => {
-                setConfirmRidePopupPanel(true)                          
-                }} className='w-full mt-5 bg-[#32ff7e] text-white font-semibold p-2 rounded-lg'>Accept</button>
-            <button onClick={() => {
-                setRidePopupPanel(false);
-            }} className='w-full mt-1 bg-gray-300 text-gray-700 font-semibold p-2 rounded-lg'>Ignore</button>
+            <div className='flex w-full mt-5 items-center justify-between'>
+                <button onClick={() => {
+                    setRidePopupPanel(false);
+                }} className='bg-gray-300 text-gray-700 font-semibold p-2 px-10 rounded-lg'>
+                Ignore</button>
+                <button onClick={() => {
+                    setConfirmRidePopupPanel(true)                          
+                    }} className='bg-[#32ff7e] text-white font-semibold p-2 px-10 rounded-lg'>
+                Accept</button>
+            </div>
         </div>
     </div>
   )

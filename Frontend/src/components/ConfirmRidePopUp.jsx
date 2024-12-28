@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 const ConfirmRidePopUp = ({setConfirmRidePopupPanel,setRidePopupPanel}) => {
   return (
@@ -7,7 +8,7 @@ const ConfirmRidePopUp = ({setConfirmRidePopupPanel,setRidePopupPanel}) => {
     onClick={() => {setConfirmRidePopupPanel(false)}}><i className="text-3xl text-gray-200 ri-arrow-down-wide-fill"></i></h5>
       <h3 className='text-2xl font-semibold mb-5'>Confirm this ride to Start</h3>
 
-      <div className='flex items-center justify-between bg-yellow-400 rounded-lg p-3 m-4'>
+      <div className='flex items-center justify-between bg-yellow-400 rounded-lg p-3'>
           <div className='flex items-center gap-3'>
               <img className='h-10 w-10 rounded-full object-cover' src="https://picsum.photos/id/237/536/354" alt="" />
               <h2 className='text-lg font-medium'>Kutte ka Mut</h2>
@@ -40,13 +41,11 @@ const ConfirmRidePopUp = ({setConfirmRidePopupPanel,setRidePopupPanel}) => {
                   </div> 
               </div>
           </div>
-          <button onClick={() => {
-                                                      
-              }} className='w-full mt-5 bg-[#32ff7e] text-white font-semibold p-2 rounded-lg'>Confirm</button>
+          <Link to={'/captain-riding'} className='flex justify-center w-full mt-5 bg-[#32ff7e] text-white font-semibold p-3 rounded-lg'>Confirm</Link>
           <button onClick={() => {
               setConfirmRidePopupPanel(false);
               setRidePopupPanel(false);
-          }} className='w-full mt-1 bg-red-600 text-white font-semibold p-2 rounded-lg'>Cancel</button>
+          }} className='w-full mt-1 bg-red-600 text-white font-semibold p-3 rounded-lg'>Cancel</button>
       </div>
   </div>
   )
