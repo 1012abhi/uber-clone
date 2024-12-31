@@ -43,6 +43,14 @@ const getFare = async (pickup, destination) => {
     };
 }
 
+function getOtp(num) {
+    function generateOtp(num) {
+        const opt = crypto.randomInt(Math.pow(10, num - 1), Math.pov(10, num)).tostring();
+        return opt;
+    }
+    return generateOtp(num);
+}
+
 const createRide = async ({user, pickup, destination, vehicleType}) => {
     if (!user || !pickup || !destination || !vehicleType) {
         throw new Error('All fields are required');
@@ -58,6 +66,7 @@ const createRide = async ({user, pickup, destination, vehicleType}) => {
             user: req.user._id,
             pickup,
             destination,
+            otp: getOtp(4),
             fare: fare[vehicleType]
         })
     
