@@ -1,5 +1,5 @@
-import { RideModel } from "../models/ride.model";
-import { getDistanceTime } from '../services/maps.service'
+import { RideModel } from "../models/ride.model.js";
+import getDistanceAndTime from '../services/maps.service.js'
 
 
 const getFare = async (pickup, destination) => {
@@ -7,23 +7,23 @@ const getFare = async (pickup, destination) => {
         throw new Error('Pickup and destination are required')
     }
 
-    const distanceTime = await getDistanceTime(pickup, destination);
+    const distanceTime = await getDistanceAndTime(pickup, destination);
     const baseFare = {
         car: 50,
         auto: 30,
-        motorcycle: 20
+        moto: 20
     };
 
     const perKmRate = {
         car: 10,
         auto: 7,
-        motorcycle: 5
+        moto: 5
     };
 
     const perMinuteRate = {
         car: 2,
         auto: 1.5,
-        motorcycle: 1
+        moto: 1
     };
 
     const calculateFare = (vehicleType) => {
@@ -39,11 +39,35 @@ const getFare = async (pickup, destination) => {
     return {
         car: calculateFare('car'),
         auto: calculateFare('auto'),
-        motorcycle: calculateFare('motorcycle')
+        moto: calculateFare('motorcycle')
     };
 }
 
-const createRide = ({}) => {}
+const createRide = async ({user, pickup, destination, vehicleType}) => {
+    if (!user || !pickup || !destination || !vehicleType) {
+        throw new Error('All fields are required');
+    }
+
+    const fare = await getFare(pickup, destination);
+    if (!fare[vehicleType]) {
+        throw new Error('Invalid vehicle type');
+    }
+    
+    try {
+        const ride = RideModel.create({
+            user: req.user._id,
+            pickup,
+            destination,
+            fare: fare[vehicleType]
+        })
+    
+        return ride;
+    } catch (error) {
+        console.error('Error creating ride:', error);
+        throw new Error('Error creating ride');
+    }
+
+}
 
 
 export default {getFare, createRide}

@@ -1,6 +1,6 @@
 import { validationResult } from "express-validator";
-import getAddressCoordinate from "../services/maps.service";
-import getDistanceTime from "../services/maps.service";
+import getAddressCoordinate from "../services/maps.service.js";
+import getDistanceAndTime from "../services/maps.service.js";
 
 const getCoordinate = async (req, res, next) => {
     const error = validationResult(req);
@@ -29,7 +29,7 @@ const getDistanceTime = async (req, res, next) => {
 
         const { origin, destination } = req.query;
 
-        const distanceTime = await getDistanceTime(origin, destination)
+        const distanceTime = await getDistanceAndTime(origin, destination)
 
         res.status(200).json(distanceTime);
 

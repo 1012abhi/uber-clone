@@ -1,6 +1,7 @@
-import { query, Router } from "express";
-import { authUser } from "../middleware/auth.middleware";
-import { getAutoCompleteSuggestions, getCoordinate, getDistanceTime } from "../controller/map.controller";
+import { Router } from "express";
+import { authUser } from "../middleware/auth.middleware.js";
+import { getAutoCompleteSuggestions, getCoordinate, getDistanceTime } from "../controller/map.controller.js";
+import { query } from "express-validator";
 
 const router = Router();
 router.get('/get-coordinates',

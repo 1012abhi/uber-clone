@@ -23,7 +23,7 @@ const getAddressCoordinate = async (address) => {
     }
 }
 
-const getDistanceTime = async (origin, destination) => {
+const getDistanceAndTime = async (origin, destination) => {
     if (!origin || !destination) {
         throw new Error('Invalid origin or destination')
     }
@@ -70,4 +70,4 @@ const getAutoCompleteSuggestions = async (input) => {
         
     }
 }
-export default {getAddressCoordinate, getDistanceTime, getAutoCompleteSuggestions}
+export default {getAddressCoordinate, getDistanceAndTime, getAutoCompleteSuggestions}

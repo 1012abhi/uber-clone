@@ -20,9 +20,13 @@ app.get('/', (req, res) => {
 import userRoutes from "./routes/user.routes.js";
 import captainRoutes from "./routes/captain.routes.js"
 import mapsRoutes from "./routes/maps.routes.js"
+import rideRoutes from "./routes/ride.routes.js"
+
 
 app.use('/api/users', userRoutes)
 app.use('/api/captains', captainRoutes)
 app.use('/api/maps', mapsRoutes)
+app.use('/api/ride', rideRoutes)
+
 
 export {app}

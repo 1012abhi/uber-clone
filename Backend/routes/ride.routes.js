@@ -1,13 +1,17 @@
 import { Router } from "express";
 import { body } from "express-validator";
-
+import { createRide } from "../controller/ride.controller.js";
+import { authUser } from "../middleware/auth.middleware.js";
 
 const router = Router()
 
 router.post('/create', 
-    body('userId').isString().isLength({ min: 24, max: 24}).withMessage('Invalid user id'),
+    authUser, 
     body('pickup').isString().isLength({ min: 3 }).withMessage('Invalid pickup address'),
-    body('destination').isString().isLength({ min: 3}).withMessage('Invalid destination')
+    body('destination').isString().isLength({ min: 3}).withMessage('Invalid destination'),
+    body('vehicleType').isString().isInt([ 'auto', 'car', 'moto' ]).withMessage('Invalid vehicle type'),
+    createRide
+
 )
 
 
