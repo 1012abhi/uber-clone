@@ -1,6 +1,5 @@
 import { validationResult } from "express-validator";
 import  mapsService from "../services/maps.service.js";
-import  getAddressCoordinate from "../services/maps.service.js";
 
 
 const getCoordinate = async (req, res, next) => {
