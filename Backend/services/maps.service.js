@@ -59,14 +59,21 @@ const getDistanceAndTime = async (origin, destination) => {
 
 }
 
-const getAutoCompleteSuggestions = async (input) => {
+const getSuggestions = async (input) => {
     if (!input) {
         throw new Error('query is required');
     }
 
     const apiKey = process.env.GOOGLE_MAPS_API;
-    const url = `https://maps.gomaps.pro/maps/api/placeautocomplete/json?input=${encodeURIComponent(input)}$key=${apiKey}`
-
+    if (!apiKey) {
+        throw new Error("apiKey is required");
+        
+    }
+    const url = `https://maps.gomaps.pro/maps/api/place/autocomplete/json?input=${encodeURIComponent(input)}&key=${apiKey}`
+    if (!url) {
+        throw new Error("url is required");
+        
+    }
     try {
         const response = await axios.get(url);
         if (response.data.status === 'OK') {
@@ -75,9 +82,9 @@ const getAutoCompleteSuggestions = async (input) => {
             throw new Error('Unable to fetch suggestions');
         }
     } catch (error) {
-        console.error(error)
-        throw error;
+        console.error('Autocomplete API Error:', error.message);
+        throw new Error('Failed to fetch suggestions');
         
     }
 }
-export default {getAddressCoordinate, getDistanceAndTime, getAutoCompleteSuggestions}
+export default {getAddressCoordinate, getDistanceAndTime, getSuggestions}
