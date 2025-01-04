@@ -1,10 +1,7 @@
 # Uber Clone Backend
 
 # User Registration Endpoint
-## Http Method
-### POST
-## Endpoint
-`POST /api/users/register`
+# Endpoint `POST /api/users/register`
 
 ## Description
 This endpoint allows new users to register by providing their details. Upon successful registration, the user will receive a confirmation response.
@@ -36,7 +33,7 @@ The request body must be a JSON object containing the following fields:
 }
 ```
 
-# Response 
+## Response 
 
 ### Success Response
 
@@ -55,7 +52,7 @@ The request body must be a JSON object containing the following fields:
   }
 }
 ```
-# Error Responses
+## Error Responses
 
 ### Status Code: 400 Bad Request
 
@@ -81,11 +78,9 @@ The request body must be a JSON object containing the following fields:
   "error": "An unexpected error occurred. Please try again later."
 }
 ```
+
 # User Login Endpoint
-## Http Method
-### POST
-## Endpoint
-`POST /api/users/login`
+# Endpoint `POST /api/users/login`
 
 ## Description
 This endpoint allows users to log in by providing their email and password. Upon successful login, the user will receive a token for authentication.
@@ -110,7 +105,7 @@ The request body must be a JSON object containing the following fields:
   "password": "securePassword"
 }
 ```
-# Success Response
+## Success Response
 ### Status Code: 200 OK
 ## Response Body:
 ```json
@@ -125,7 +120,7 @@ The request body must be a JSON object containing the following fields:
   }
 }
 ```
-# Error Responses
+## Error Responses
 ### Status Code: 400 Bad Request
 ## Response Body:
 ```json
@@ -177,11 +172,9 @@ This endpoint allows authenticated users to retrieve their profile information. 
   "lastName": "Doe"
 }
 ```
+
 # User Logout Endpoint
-## Http Method
-### GET
-## Endpoint
-### GET /api/users/logout
+# Endpoint `GET /api/users/logout`
 
 ## Description
 This endpoint allows users to log out of their account. It clears the authentication token from the user's cookies and adds the token to a blacklist to prevent further use.
@@ -210,11 +203,8 @@ Bearer <token> (The token should be included in the Authorization header)
 ```
 
 
-## Captain Registration Endpoint
-
-**Endpoint:** `/api/captains/register`  
-**HTTP Method:** `POST`  
-**Content-Type:** `application/json`
+# Captain Registration Endpoint   
+# Endpoint `/api/captains/register` 
 
 ### Description
 This endpoint allows a new captain to register by providing their personal and vehicle information. It validates the input data and creates a new captain record in the database.
@@ -291,9 +281,9 @@ The request body must be a JSON object containing the following fields:
 }
 ```
 
-## Captain Login Endpoint
+# Captain Login Endpoint
 
-**Endpoint:** `/api/captains/login`  
+# Endpoint:`POST /api/captains/login`  
 **HTTP Method:** `POST`  
 **Content-Type:** `application/json`
 
@@ -358,9 +348,8 @@ The request body must be a JSON object containing the following fields:
 }
 ```
 
-## Captain Profile Endpoint
-
-**Endpoint:** `/api/captains/profile`  
+# Captain Profile Endpoint
+# Endpoint: `GET /api/captains/profile`  
 **HTTP Method:** `GET`  
 **Content-Type:** `application/json`
 
@@ -397,9 +386,8 @@ This endpoint allows authenticated captains to retrieve their profile informatio
 }
 ```
 
-## Captain Logout Endpoint
-
-**Endpoint:** `/api/captains/logout`  
+# Captain Logout Endpoint
+# Endpoint: `/api/captains/logout`  
 **HTTP Method:** `GET`  
 **Content-Type:** `application/json`
 
