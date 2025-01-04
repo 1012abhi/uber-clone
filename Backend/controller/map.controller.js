@@ -1,19 +1,29 @@
 import { validationResult } from "express-validator";
-import getAddressCoordinate from "../services/maps.service.js";
-import getDistanceAndTime from "../services/maps.service.js";
+import  mapsService from "../services/maps.service.js";
+import  getAddressCoordinate from "../services/maps.service.js";
+
 
 const getCoordinate = async (req, res, next) => {
     const error = validationResult(req);
-    if (error) {
-        return res.status(400).json({ error: error.array() })
+    if (!error.isEmpty()) {
+        return res.status(400).json({ message: 'Validation failed in controller', error: error.array() });
     }
 
     const { address } = req.query;
-
+    if (!address) {
+        return res.status(400).json({ message: 'Address is required' });
+    }
+    
     try {
-        const coordinates = await getAddressCoordinate(address);
+        const coordinates = await mapsService.getAddressCoordinate(address);
+        console.log('coordinates', coordinates);
+        
+        if (!coordinates) {
+            return res.status(404).json({ error: "Address not found" })
+        }
         res.status(200).json(coordinates);
     } catch (error) {
+        console.error('Error in getCoordinate:', error.message);
         res.status(404).json({ message: 'Coodinates not found' });
     }
 
@@ -28,9 +38,7 @@ const getDistanceTime = async (req, res, next) => {
         }
 
         const { origin, destination } = req.query;
-
-        const distanceTime = await getDistanceAndTime(origin, destination)
-
+        const distanceTime = await mapsService.getDistanceAndTime(origin, destination)
         res.status(200).json(distanceTime);
 
     } catch (error) {
@@ -40,17 +48,12 @@ const getDistanceTime = async (req, res, next) => {
 
 }
 
-const getAutoCompleteSuggestions = async (input) => {
-    if (!input) {
-        throw new Error("query is required");
-    }
-
-    const apiKey = process.env.GOOGLE_MAPS_API;
+const getAutoCompleteSuggestions = async (req, res, next) => {
     try {
         
-        const errors = validationResult(req);
-        if (errors.isEmpty()) {
-            return res.status(400).json({ error: errors.array() });
+        const error = validationResult(req);
+        if (!error.isEmpty()) {
+            return res.status(400).json({ error: error.array() });
         }
 
         const { input } = req.query;
