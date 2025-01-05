@@ -561,3 +561,77 @@ This endpoint allows users to get autocomplete suggestions for a given input.
     "message": "Unauthorized"
 }
 ```
+
+# Ride Endpoints
+
+## Create Ride Endpoint
+## Endpoint: `POST /api/rides/create`
+**HTTP Method:** `POST`  
+**Content-Type:** `application/json`
+
+### Description
+This endpoint allows authenticated users to create a new ride by providing the pickup and destination addresses, as well as the vehicle type.
+
+### Request Headers
+- `Authorization: Bearer <token>` (The token should be included in the Authorization header)
+
+### Request Body
+The request body must be a JSON object containing the following fields:
+
+```json
+{
+    "pickup": "string (required, min length: 3)",
+    "destination": "string (required, min length: 3)",
+    "vehicleType": "string (required, must be one of: 'auto', 'car', 'moto')"
+}
+```
+### Example Request
+```json
+{
+    "pickup": "123 Main St, Springfield, IL",
+    "destination": "456 Elm St, Springfield, IL",
+    "vehicleType": "car"
+}
+```
+### Responses
+**201 Created:** Returns a JSON object confirming the ride creation.
+```json
+{
+    "message": "Ride created successfully",
+    "ride": {
+        "id": "ride_id",
+        "pickup": "123 Main St, Springfield, IL",
+        "destination": "456 Elm St, Springfield, IL",
+        "vehicleType": "car",
+        "status": "pending"
+    }
+}
+```
+**400 Bad Request:** If validation fails.
+```json
+{
+    "errors": [
+        {
+            "msg": "Invalid pickup address",
+            "param": "pickup",
+            "location": "body"
+        },
+        {
+            "msg": "Invalid destination",
+            "param": "destination",
+            "location": "body"
+        },
+        {
+            "msg": "Invalid vehicle type",
+            "param": "vehicleType",
+            "location": "body"
+        }
+    ]
+}
+```
+**401 Unauthorized:** If the token is missing or invalid.
+```json
+{
+    "message": "Unauthorized"
+}
+```
