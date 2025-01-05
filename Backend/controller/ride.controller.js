@@ -21,6 +21,22 @@ const createRide = async (req, res) => {
 
 }
 
+const getFare = async (req, res, next) => {
+    const error = validationResult(req);
+    if(!error.isEmpty()) {
+        return res.status(400).json({ error: error.array() });
+    }
+
+    const { pickup, destination } = req.query;
+
+    try {
+        const fare = await rideService.getFare(pickup, destination);
+        return res.status(200).json(fare)
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+}
 
 
-export { createRide }
+
+export { createRide,getFare }
