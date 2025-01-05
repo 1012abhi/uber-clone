@@ -410,3 +410,154 @@ This endpoint allows captains to log out of their account. It clears the authent
     "message": "Unauthorized"
 }
 ```
+
+# Maps Endpoints
+
+## Get Coordinates Endpoint
+## Endpoint: `GET /api/maps/get-coordinates`
+**HTTP Method:** `GET`  
+**Content-Type:** `application/json`
+
+### Description
+This endpoint allows users to get the coordinates of a given address.
+
+### Request Headers
+- `Authorization: Bearer <token>` (The token should be included in the Authorization header)
+
+### Query Parameters
+- `address` (string, required): The address to get coordinates for. Must be at least 3 characters long.
+
+### Example Request
+
+### Responses
+**200 OK:** Returns a JSON object containing the coordinates of the address.
+```json
+{
+    "lat": 37.4224764,
+    "lng": -122.0842499,
+    "formatted_address": "1600 Amphitheatre Parkway, Mountain View, CA 94043, USA"
+} 
+```
+**400 Bad Request:** 
+```json
+{
+    "message": "Validation failed",
+    "error": [
+        {
+            "msg": "address must be required",
+            "param": "address",
+            "location": "query"
+        }
+    ]
+}
+```
+**401 Unauthorized: If the token is missing or invalid.**
+```json
+{
+    "message": "Unauthorized"
+}
+```
+
+## Get Distance and Time Endpoint
+## Endpoint: `GET /api/maps/get-distance-time`
+**HTTP Method:** `GET`
+**Content-Type:** `application/json`
+
+### Description
+This endpoint allows users to get the distance and time between two locations.
+
+### Request Headers
+- `Authorization: Bearer <token>` (The token should be included in the Authorization header)
+
+### Query Parameters
+- `origin (string, required):` The starting location. Must be at least 3 characters long.
+- `destination (string, required):` The destination location. Must be at least 3 characters long.
+
+### Example Request
+
+### Responses
+**200 OK:** Returns a JSON object containing the distance and time between the locations.
+```json
+{
+    "distance": {
+        "text": "2,789 mi",
+        "value": 4487280
+    },
+    "duration": {
+        "text": "1 day 18 hours",
+        "value": 151200
+    }
+}
+```
+**400 Bad Request:** If validation fails.
+```json
+{
+    "message": "Validation failed",
+    "error": [
+        {
+            "msg": "Origin must be a string",
+            "param": "origin",
+            "location": "query"
+        },
+        {
+            "msg": "Destination must be a string",
+            "param": "destination",
+            "location": "query"
+        }
+    ]
+}
+```
+**401 Unauthorized:** If the token is missing or invalid.
+```json
+{
+    "message": "Unauthorized"
+}
+```
+
+## Get AutoComplete Suggestions Endpoint
+## Endpoint: `GET /api/maps/get-suggestions`
+**HTTP Method:** `GET`
+**Content-Type:** `application/json`
+
+### Description
+This endpoint allows users to get autocomplete suggestions for a given input.
+
+### Request Headers
+`Authorization: Bearer <token>` (The token should be included in the Authorization header)
+### Query Parameters
+- `input (string, required):` The input to get suggestions for. Must be at least 3 characters long.
+
+### Example Request
+`GET /api/maps/get-suggestions?input=1600+Amphitheatre`
+
+### Response
+**200 OK:** Returns a JSON object containing the autocomplete suggestions.
+
+```json
+[
+    {
+        "description": "1600 Amphitheatre Parkway, Mountain View, CA, USA",
+        "place_id": "ChIJ2eUgeAK6j4ARbn5u_wAGqWA"
+    },
+    ...
+]
+```
+**400 Bad Request:** If validation fails.
+```json
+{
+    "message": "Validation failed",
+    "error": [
+        {
+            "msg": "Suggestions must be a string",
+            "param": "input",
+            "location": "query"
+        }
+    ]
+}
+```
+**401 Unauthorized:** If the token is missing or invalid.
+```json
+{
+    "message": "Unauthorized"
+}
+```
