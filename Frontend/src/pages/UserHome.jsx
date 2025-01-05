@@ -170,8 +170,16 @@ function UserHome() {
             onChange={handleDestinationChange}
             className='bg-[#eeee] px-12 p-2 text-lg rounded-lg w-full mt-5' type="text" placeholder='Enter your destination' />
           </form>
+          <button 
+          onClick={() => {
+            setVehiclePanel(true)
+            setPanelOpen(false)
+          }}
+          className='w-full px-4 py-2 mt-4 bg-black rounded-lg text-zinc-100 text-lg font-semibold'>
+            Find Trip
+          </button>
         </div>        
-        <div ref={panelRef} className='bg-white '>
+        <div ref={panelRef} className='bg-white mt-6'>
             <LocationSearchPanel 
             suggestions={activeField === 'pickup' ? pickupSuggestions : destinationSuggestions}
             setPanelOpen={setPanelOpen} 
