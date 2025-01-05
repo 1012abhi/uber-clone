@@ -635,3 +635,66 @@ The request body must be a JSON object containing the following fields:
     "message": "Unauthorized"
 }
 ```
+
+# Get Fare Endpoint
+## Endpoint `GET /api/rides/get-fare`
+
+### Description
+This endpoint allows users to get the estimated fare for a ride by providing the pickup and destination addresses. The user must be authenticated to access this endpoint.
+
+### Request
+
+#### Headers
+- `Authorization: Bearer <token>` (The token should be included in the Authorization header)
+
+#### Query Parameters
+The request must include the following query parameters:
+
+| Parameter     | Type   | Required | Description                          |
+|---------------|--------|----------|--------------------------------------|
+| `pickup`      | string | Yes      | The pickup address. Must be at least 3 characters long. |
+| `destination` | string | Yes      | The destination address. Must be at least 3 characters long. |
+
+### Example Request
+
+### Success Response
+
+#### Status Code: 200 OK
+#### Response Body:
+```json
+{
+  "fare": 25.50,
+  "currency": "USD"
+}
+```
+**Status Code:** 400 Bad Request
+**Response Body:**
+```json
+{
+  "errors": [
+    {
+      "msg": "Invalid Pickup address",
+      "param": "pickup",
+      "location": "query"
+    },
+    {
+      "msg": "Invalid Destination",
+      "param": "destination",
+      "location": "query"
+    }
+  ]
+}
+```
+**Status Code:** 401 Unauthorized
+```json
+{
+  "message": "Unauthorized"
+}
+```
+**Status Code:** 500 Internal Server Error
+
+```json
+{
+  "error": "An unexpected error occurred. Please try again later."
+}
+```
