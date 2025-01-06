@@ -27,7 +27,7 @@ const ConfirmRide = ({setConfirmRidePanel, setVehicleFound, destination, pickup,
                 <div className='flex items-center gap-5 p-3'>
                     <i className="ri-currency-fill"></i>
                     <div>
-                        <h3 className='text-lg font-medium'>{fare[vehicleType]}</h3> 
+                        <h3 className='text-lg font-medium'>₹{fare[vehicleType]}</h3> 
                         <p className='text-sm -mt-1 text-gray-600'>Cash cash</p>   
                     </div> 
                 </div>
