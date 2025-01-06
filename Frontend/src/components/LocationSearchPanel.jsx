@@ -6,7 +6,7 @@ const LocationSearchPanel = ({setPanelOpen,setVehiclePanel,suggestions,activeFie
     if (activeField === 'pickup') {
       setPickup(suggestions.description)
     } else if (activeField === 'destination') {
-      setDestination(suggestions.name)
+      setDestination(suggestions.description)
     }
     // setVehiclePanel(true)
     // setPanelOpen(false)
