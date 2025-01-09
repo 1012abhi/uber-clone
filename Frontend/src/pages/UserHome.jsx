@@ -34,8 +34,6 @@ function UserHome() {
 
   const { socket } = useContext(SocketContext)
   const { user } = useContext(UserDatacontext)
-  console.log(`user: ${user}`);
-  // console.log(`socket: ${JSON.stringify(socket)}`);
   
   useEffect(() => {
     socket.emit("join", { userType: "user", userId: user._id })
