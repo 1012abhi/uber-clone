@@ -23,7 +23,7 @@ const UserProtectedWrapper = ({children}) => {
         })
         .then((response) => {
             const data = response.data;
-            setUser(data.user)
+            setUser(data)
 
 
         })
