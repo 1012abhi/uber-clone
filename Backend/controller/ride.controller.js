@@ -1,6 +1,6 @@
 import { validationResult } from "express-validator";
 import rideService from "../services/ride.service.js";
-
+import mapsService from "../services/maps.service.js";
 
 const createRide = async (req, res) => {
     const error = validationResult(req);
@@ -12,8 +12,12 @@ const createRide = async (req, res) => {
     try {
         
         const ride = await rideService.create({ user: req.user._id, pickup, destination, vehicleType})
-        return res.status(201).json(ride)
-
+        res.status(201).json(ride)
+        
+        const pickupCoordinates = await mapsService.getAddressCoordinate(pickup)
+        
+        const getCaptainsInRadius = await mapsService.getCaptainsInTheRadius(pickupCoordinates.ltd, pickupCoordinates.lng, 20)
+        
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }
