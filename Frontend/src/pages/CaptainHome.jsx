@@ -21,6 +21,25 @@ const CaptainHome = () => {
 
   useEffect(() => {
     socket.emit('join', { userId: captain._id, userType: "captain" })
+    // console.log('{ userId', userId);
+    
+    const updateLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+          socket.emit('update-location-captain', {
+            userId: captain._id,
+            location: {
+              ltd: position.coords.latitude,
+              lng: position.coords.longitude
+            }
+          })
+        } 
+        )
+      }
+    }
+
+    const locationInterval = setInterval(updateLocation, 1000)
+    updateLocation()
   })
 
   useGSAP(() => {
