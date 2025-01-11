@@ -34,7 +34,7 @@ function initializeSocket(server) {
 
         socket.on('update-location-captain', async (data) => {
             const { userId, location } = data;
-            console.log('userId And location-cap', userId, location);
+            // console.log('userId And location-cap', userId, location);
             
             if (!location || !location.ltd || !location.lng) {
                 return socket.emit('error', { message: 'Invalid location' });
@@ -56,9 +56,9 @@ function initializeSocket(server) {
     })
 }
 
-function sendMessageToSocketId(socketId, message) {
+function sendMessageToSocketId(socketId, messageObject) {
     if (io) {
-        io.to(socketId).emit('message', message);
+        io.to(socketId).emit(messageObject.event, messageObject.data);
     } else {
         console.log(`Socket.io not initialized`);
         

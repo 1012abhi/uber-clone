@@ -42,6 +42,12 @@ const CaptainHome = () => {
     updateLocation()
   })
 
+  socket.on('new-ride', (data) => {
+    console.log(data);
+    
+  })
+
+
   useGSAP(() => {
     if(ridePopupPanel) {
       gsap.to(ridePopupPanelRef.current, {
