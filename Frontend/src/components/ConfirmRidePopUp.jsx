@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const ConfirmRidePopUp = ({setConfirmRidePopupPanel,setRidePopupPanel,ride}) => {
     const [otp, setOtp] = useState('')
-    const navigate = useNavigate('')
+    const navigate = useNavigate()
 
     const submitHandler = async (e) => {
         e.preventDefault();
