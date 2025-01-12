@@ -92,6 +92,7 @@ const startRide = async (req, res) => {
 
     try {
         const ride = await rideService.startRides({ rideId, otp, captain: req.captain });
+        return res.status(200).json(ride)
     } catch (error) {
         console.log(error);
         return res.status(500).json({ error: error.message });
