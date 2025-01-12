@@ -24,7 +24,7 @@ const createRide = async (req, res) => {
         
         const rideWithUser = await RideModel.findOne({ _id: ride._id }).populate('user')
         CaptainsInRadius.map(captain => {
-            console.log(captain, ride);
+            console.log(captain.socketId, ride);
             
             sendMessageToSocketId(captain.socketId, {
                 event: "new-ride",
@@ -59,6 +59,44 @@ const getFare = async (req, res, next) => {
     }
 }
 
+const confirmRide = async (req, res, next) => {
+    const error = validationResult(req);
+    if(!error.isEmpty()) {
+        return res.status(400).json({ error: error.array() });
+    }
 
+    const { rideId } = req.body;
 
-export { createRide,getFare }
+    try {
+        const ride = await rideService.confirmRides({rideId, captain: req.captain})
+
+        sendMessageToSocketId(ride.user.socketId, {
+            event: 'ride-confirmed',
+            data: ride
+        })
+        return res.status(200).json(ride)
+    } catch (error) {
+        console.log(error);
+        
+        return res.status(500).json({ error: error.message });
+    }
+}
+
+const startRide = async (req, res) => {
+    const error = validationResult(req);
+    if(!error.isEmpty()) {
+        return res.status(400).json({ error: error.array() });
+    }
+
+    const { rideId, otp } = req.query;
+
+    try {
+        const ride = await rideService.startRides({ rideId, otp, captain: req.captain });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ error: error.message });
+        
+    }
+}
+
+export { createRide,getFare,confirmRide,startRide }
