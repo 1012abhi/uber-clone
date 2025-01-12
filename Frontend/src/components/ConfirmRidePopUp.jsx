@@ -1,11 +1,28 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-const ConfirmRidePopUp = ({setConfirmRidePopupPanel,setRidePopupPanel}) => {
+const ConfirmRidePopUp = ({setConfirmRidePopupPanel,setRidePopupPanel,ride}) => {
     const [otp, setOtp] = useState('')
+    const navigate = useNavigate('')
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
+        
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/ride/start-ride`,{
+            params:  {
+                rideId: ride._id,
+                otp: otp
+            },
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+        if (response.status === 200) {
+            setConfirmRidePopupPanel(false);
+            setRidePopupPanel(false);
+            navigate('/captain-riding')
+        }
     }
 
   return (
@@ -49,16 +66,14 @@ const ConfirmRidePopUp = ({setConfirmRidePopupPanel,setRidePopupPanel}) => {
           </div>
           
           <div className='w-full mt-6'>
-           <form onSubmit={(e) => {
-            submitHandler(e)
-           }}>
+           <form onSubmit={submitHandler}>
                 <input 
                 value={otp}
-                onChange={() => {setOtp(e.target.value);}}
+                onChange={(e) => {setOtp(e.target.value)}}
                 className='bg-[#eeee] px-6 py-4 p-2 font-mono text-lg rounded-lg w-full mt-5' type="number" placeholder='Enter OTP' 
                 />
 
-                <Link to={'/captain-riding'} className='flex justify-center w-full mt-5 bg-[#32ff7e] text-zinc-800 text-lg font-semibold p-3 rounded-lg'>Confirm</Link>
+                <button className='flex justify-center w-full mt-5 bg-[#32ff7e] text-zinc-800 text-lg font-semibold p-3 rounded-lg'>Confirm</button>
                 
                 <button onClick={() => {
                     setConfirmRidePopupPanel(false);

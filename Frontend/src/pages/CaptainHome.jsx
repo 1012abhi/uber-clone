@@ -7,14 +7,15 @@ import gsap from 'gsap'
 import ConfirmRidePopUp from '../components/ConfirmRidePopUp'
 import { CaptainDataContext } from '../context/CaptainContext'
 import { SocketContext } from '../context/SocketContext'
-
+import axios from 'axios'
 const CaptainHome = () => {
   
-  const [ridePopupPanel, setRidePopupPanel] = useState(true)
+  const [ridePopupPanel, setRidePopupPanel] = useState(false)
   const [confirmRidePopupPanel,setConfirmRidePopupPanel] = useState(false)
   
   const ridePopupPanelRef = useRef(null)
   const confirmRidePopupPanelRef = useRef(null)
+  const [ride,setRide] = useState(null)
 
   const { socket } = useContext(SocketContext)
   const { captain } = useContext(CaptainDataContext)
@@ -40,12 +41,30 @@ const CaptainHome = () => {
 
     const locationInterval = setInterval(updateLocation, 1000)
     updateLocation()
-  })
+  },[] )
 
   socket.on('new-ride', (data) => {
-    console.log(data);
-    
+    console.log('new-ride',data);
+    setRide(data)
+    setRidePopupPanel(true)
   })
+
+  async function confirmRide() {
+
+    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/ride/confirm`,
+      {
+        rideId: ride._id,
+        captainId: captain._id
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    )
+    setRidePopupPanel(false)
+    setConfirmRidePopupPanel(true)
+  }
 
 
   useGSAP(() => {
@@ -90,10 +109,15 @@ const CaptainHome = () => {
         <CaptainDetails />
       </div>
       <div ref={ridePopupPanelRef} className='fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-6 pt-12'>
-        <RidePopUp setRidePopupPanel={setRidePopupPanel} setConfirmRidePopupPanel={setConfirmRidePopupPanel}/>
+        <RidePopUp 
+        ride={ride}
+        confirmRide={confirmRide}
+        setRidePopupPanel={setRidePopupPanel} setConfirmRidePopupPanel={setConfirmRidePopupPanel}/>
       </div>
       <div ref={confirmRidePopupPanelRef} className='fixed w-full h-screen z-10 bottom-0 translate-y-full bg-white px-3 py-6 pt-12'>
-        <ConfirmRidePopUp setConfirmRidePopupPanel={setConfirmRidePopupPanel} setRidePopupPanel={setRidePopupPanel}/>
+        <ConfirmRidePopUp 
+        ride={ride}
+        setConfirmRidePopupPanel={setConfirmRidePopupPanel} setRidePopupPanel={setRidePopupPanel}/>
       </div>
     </div>
   )

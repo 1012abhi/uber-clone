@@ -18,13 +18,13 @@ const createRide = async (req, res) => {
         
         const pickupCoordinates = await mapsService.getAddressCoordinate(pickup)
         
-        const CaptainsInRadius = await mapsService.getCaptainsInTheRadius(pickupCoordinates.ltd, pickupCoordinates.lng, 20)
+        const CaptainsInRadius = await mapsService.getCaptainsInTheRadius(pickupCoordinates.ltd, pickupCoordinates.lng, 50)
 
         ride.otp = ""
         
         const rideWithUser = await RideModel.findOne({ _id: ride._id }).populate('user')
         CaptainsInRadius.map(captain => {
-            console.log(captain.socketId, ride);
+            console.log(captain.socketId, ride)
             
             sendMessageToSocketId(captain.socketId, {
                 event: "new-ride",

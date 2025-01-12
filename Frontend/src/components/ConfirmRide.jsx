@@ -1,7 +1,13 @@
 import React from 'react'
 
 const ConfirmRide = ({setConfirmRidePanel, setVehicleFound, destination, pickup, fare, vehicleType, createRide}) => {
-  return (
+    const submit = () => {
+        createRide()
+        setVehicleFound(true)
+        setConfirmRidePanel(false)
+    }
+  
+    return (
     <div>
       <h5 className='p-1 w-[93%] text-center absolute top-0' 
       onClick={() => {setConfirmRidePanel(false)}}><i className="text-3xl text-gray-200 ri-arrow-down-wide-fill"></i></h5>
@@ -32,11 +38,7 @@ const ConfirmRide = ({setConfirmRidePanel, setVehicleFound, destination, pickup,
                     </div> 
                 </div>
             </div>
-            <button onClick={() => {
-                setVehicleFound(true)
-                setConfirmRidePanel(false)
-                createRide()
-                }} className='w-full mt-5 bg-[#32ff7e] text-white font-semibold p-2 rounded-lg'>Confirm</button>
+            <button onClick={submit} className='w-full mt-5 bg-[#32ff7e] text-white font-semibold p-2 rounded-lg'>Confirm</button>
         </div>
 
     </div>

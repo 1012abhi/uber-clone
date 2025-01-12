@@ -11,6 +11,7 @@ import axios from 'axios'
 import { UserDatacontext } from '../context/UserContext.jsx';
 import { SocketContext } from '../context/SocketContext.jsx';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function UserHome() {
   const [pickup, setPickup] = useState('')
@@ -31,14 +32,31 @@ function UserHome() {
   const [activeField, setActiveField] = useState([])
   const [fare, setFare] = useState({})
   const [vehicleType, setVehicleType] = useState(null)
+  const [ride, setRide] = useState(null)
 
   const { socket } = useContext(SocketContext)
   const { user } = useContext(UserDatacontext)
   
+  const navigate = useNavigate()
   useEffect(() => {
     socket.emit("join", { userType: "user", userId: user._id })
   }, [ user ])
 
+  // confirm ride jab krenge to ride create ho rahi hogi or captain ke pass notify ho raha hoga
+  socket.on('ride-confirmed', ride => {
+    console.log('ride', ride);
+    
+    setVehicleFound(false)
+    setWaitingForDriver(true)
+    setRide(ride)
+  })  
+
+  socket.on('ride-started', (ride) => {
+    console.log(ride);
+    
+    setWaitingForDriver(false)
+    navigate('/riding')
+  })
   const handlePickupChange = async (e) => {
     setPickup(e.target.value)
     try {
@@ -252,7 +270,9 @@ function UserHome() {
           setVehicleFound={setVehicleFound}/>
       </div>
       <div ref={waitingForDriverRef} className='fixed w-full z-10 bottom-0 bg-white px-3 py-6 pt-12'>
-          <WaitingForDriver setWaitingForDriver={setWaitingForDriver}/>
+          <WaitingForDriver 
+          ride={ride}
+          setWaitingForDriver={setWaitingForDriver}/>
       </div>
     </div>
   )

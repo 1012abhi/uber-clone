@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { body, query } from "express-validator";
-import { createRide, getFare } from "../controller/ride.controller.js";
-import { authUser } from "../middleware/auth.middleware.js";
+import { confirmRide, createRide, getFare, startRide } from "../controller/ride.controller.js";
+import { authCaptain, authUser } from "../middleware/auth.middleware.js";
 
 const router = Router()
 
@@ -20,6 +20,20 @@ router.get('/get-fare',
     query('destination').isString().isLength({ min: 3}).withMessage('Invalid Destination'),
     getFare
 )
+
+router.post('/confirm',
+    authCaptain,
+    body('rideId').isMongoId().withMessage('Invalid rideId'),
+    confirmRide
+)
+
+router.get('/start-ride',
+    authCaptain,
+    query('rideId').isMongoId().withMessage('Invalid rideId'),
+    query('otp').isString().isLength({ min: 4}).withMessage('Invalid otp'),
+    startRide
+)
+
 
 
 export default router;

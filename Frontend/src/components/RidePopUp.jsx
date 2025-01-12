@@ -1,6 +1,6 @@
 import React from 'react'
 
-const RidePopUp = ({setRidePopupPanel,setConfirmRidePopupPanel}) => {
+const RidePopUp = ({setRidePopupPanel,setConfirmRidePopupPanel,ride,confirmRide}) => {
   return (
     <div>
       <h5 className='p-1 w-[93%] text-center absolute top-0'
@@ -10,7 +10,7 @@ const RidePopUp = ({setRidePopupPanel,setConfirmRidePopupPanel}) => {
         <div className='flex items-center justify-between bg-yellow-400 rounded-lg p-2'>
             <div className='flex items-center gap-3'>
                 <img className='h-10 w-10 rounded-full object-cover' src="https://picsum.photos/id/237/536/354" alt="" />
-                <h2 className='text-lg font-medium'>Kutte ka Mut</h2>
+                <h2 className='text-lg font-medium capitalize'>{ride?.user.fullname.firstname + " " + ride?.user.fullname.lastname}</h2>
             </div>
             <h5 className='text-lg font-semibold'>2.2 KM</h5>
         </div>
@@ -22,20 +22,20 @@ const RidePopUp = ({setRidePopupPanel,setConfirmRidePopupPanel}) => {
                     <i className="ri-map-pin-user-fill"></i>
                     <div>
                         <h3 className='text-lg font-medium'>562/11-A</h3> 
-                        <p className='text-sm -mt-1 text-gray-600'>Kankariya Talab, Bhopal</p>   
+                        <p className='text-sm -mt-1 text-gray-600'>{ride?.pickup}</p>   
                     </div> 
                 </div>
                 <div className='flex items-center gap-5 p-3 border-b-2'>
                     <i className="text-lg ri-map-pin-2-fill"></i>
                     <div>
                         <h3 className='text-lg font-medium'>562/11-A</h3> 
-                        <p className='text-sm -mt-1 text-gray-600'>Kankariya Talab, Bhopal</p>   
+                        <p className='text-sm -mt-1 text-gray-600'>{ride?.destination}</p>   
                     </div> 
                 </div>
                 <div className='flex items-center gap-5 p-3'>
                     <i className="ri-currency-fill"></i>
                     <div>
-                        <h3 className='text-lg font-medium'>193.20</h3> 
+                        <h3 className='text-lg font-medium'>{ride?.fare}</h3> 
                         <p className='text-sm -mt-1 text-gray-600'>Cash cash</p>   
                     </div> 
                 </div>
@@ -46,6 +46,7 @@ const RidePopUp = ({setRidePopupPanel,setConfirmRidePopupPanel}) => {
                 }} className='bg-gray-300 text-gray-700 font-semibold p-2 px-10 rounded-lg'>
                 Ignore</button>
                 <button onClick={() => {
+                    confirmRide()
                     setConfirmRidePopupPanel(true)                          
                     }} className='bg-[#32ff7e] text-white font-semibold p-2 px-10 rounded-lg'>
                 Accept</button>

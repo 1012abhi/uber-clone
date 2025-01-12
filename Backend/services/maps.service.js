@@ -81,6 +81,7 @@ const getSuggestions = async (input) => {
             throw new Error('Unable to fetch suggestions');
         }
     } catch (error) {
+        console.log(error);
         console.error('Autocomplete API Error:', error.message);
         throw new Error('Failed to fetch suggestions');
         
