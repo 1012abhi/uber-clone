@@ -109,35 +109,55 @@ const confirmRides = async ({rideId, captain}) => {
     }
 }
 
-const startRides = async ({ rideId, otp, captain}) => {
+const startRides = async ({ rideId, otp, captain }) => {
     if (!rideId || !otp) {
         throw new Error('Ride id and OTP not required');
     }
 
-    const ride = await RideModel.findOne({_id: rideId}).populate('user').populate('captain').select('+otp')
-    console.log('accepted ride', ride);
-    
-    if (!ride) {
-        throw new Error('Ride not found');
+    try {
+        await RideModel.findOneAndUpdate({_id: rideId}, {status: 'ongoing',captain: captain._id })
+        const ride = await RideModel.findOne({_id: rideId}).populate('user').populate('captain').select('+otp')
+        console.log('star', ride);
+        
+        if (!ride) {
+            throw new Error('Ride not found');
+        }
+        
+        // if (ride.status !== 'accepted') {
+        //     throw new Error('Ride not accepted');
+        // }
+        
+        if (ride.otp !== otp) {
+            throw new Error('Ivalid OTP not allowed');
+        }
+        
+        
+        sendMessageToSocketId(ride.user.socketId, {
+            event: 'ride-started',
+            data: ride
+        })
+        return ride 
+    } catch (error) {
+        console.log(error);
+        throw new Error(error.message);
+        
     }
-
-    if (ride.status !== 'accepted') {
-        throw new Error('Ride not accepted');
-    }
-
-    if (ride.otp !== otp) {
-        throw new Error('Ivalid OTP not allowed');
-    }
-
-    await RideModel.findByIdAndUpdate({_id: rideId}, {status: 'ongoing'})
-
-    sendMessageToSocketId(ride.user.socketId, {
-        event: 'ride-started',
-        data: ride
-    })
 
 }
 
+const endRidee = async ({ rideId, captain }) => {
+    if( !rideId ) {
+        throw new Error('Ride id is required')
+    }
 
+    await RideModel.findByIdAndUpdate({_id: rideId}, {status: 'completed'})
+    const ride = await RideModel.findOne({_id: rideId, captain: captain._id }).populate('user').populate('captain').select('+otp')
+    if (!ride) {
+        throw new Error('No such ride')
+    }
+    
+    
+    return ride;
+}
 
-export default {getFare, create, confirmRides, startRides}
+export default {getFare, create, confirmRides, startRides, endRidee }
