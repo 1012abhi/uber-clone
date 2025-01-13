@@ -1,7 +1,22 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const FinishRide = ({setFinishRidePanel, ride}) => {
+    const navigate = useNavigate()
+
+    async function endRide() {
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/ride/end-ride`,{
+            rideId: ride._id
+        }, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+        if (response.status === 200) {
+            navigate('/captain-home')
+        }
+    }
     return (
         <div>
             <h5 className='p-1 w-[93%] text-center absolute top-0'
@@ -11,7 +26,7 @@ const FinishRide = ({setFinishRidePanel, ride}) => {
             <div className='flex items-center justify-between border-2 border-yellow-400 rounded-lg p-4'>
                 <div className='flex items-center gap-3'>
                     <img className='h-10 w-10 rounded-full object-cover' src="https://picsum.photos/id/237/536/354" alt="" />
-                    <h2 className='text-lg font-medium'>{ride?.user.fullname.firstname}</h2>
+                    <h2 className='text-lg font-medium capitalize'>{ride?.user.fullname.firstname}</h2>
                 </div>
                 <h5 className='text-lg font-semibold'>2.2 KM</h5>
             </div>
@@ -44,7 +59,9 @@ const FinishRide = ({setFinishRidePanel, ride}) => {
 
                 <div className='w-full mt-10'>
                     
-                    <Link to={'/captain-home'} className='flex justify-center w-full mt-5 bg-[#32ff7e] text-zinc-800 text-lg shadow-2xl font-semibold p-3 rounded-lg'>Finish Ride</Link>
+                    <button 
+                    onClick={endRide}
+                    className='flex justify-center w-full mt-5 bg-[#32ff7e] text-zinc-800 text-lg shadow-2xl font-semibold p-3 rounded-lg'>Finish Ride</button>
                     
                 </div>
             </div>

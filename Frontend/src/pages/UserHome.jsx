@@ -44,7 +44,7 @@ function UserHome() {
 
   // confirm ride jab krenge to ride create ho rahi hogi or captain ke pass notify ho raha hoga
   socket.on('ride-confirmed', ride => {
-    console.log('ride', ride);
+    console.log('ride-confirmed', ride);
     
     setVehicleFound(false)
     setWaitingForDriver(true)
@@ -52,10 +52,10 @@ function UserHome() {
   })  
 
   socket.on('ride-started', (ride) => {
-    console.log(ride);
+    console.log('ride-started', ride);
     
     setWaitingForDriver(false)
-    navigate('/riding')
+    navigate('/riding', {state: {ride}})
   })
   const handlePickupChange = async (e) => {
     setPickup(e.target.value)

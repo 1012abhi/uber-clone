@@ -18,7 +18,7 @@ const ConfirmRidePopUp = ({setConfirmRidePopupPanel,setRidePopupPanel,ride}) => 
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
         })
-        console.log('response-start', response);
+        console.log('ride-start', response)
         
         if (response.status === 200) {
             setConfirmRidePopupPanel(false);
@@ -36,7 +36,7 @@ const ConfirmRidePopUp = ({setConfirmRidePopupPanel,setRidePopupPanel,ride}) => 
       <div className='flex items-center justify-between border-2 border-yellow-400 rounded-lg p-4'>
           <div className='flex items-center gap-3'>
               <img className='h-10 w-10 rounded-full object-cover' src="https://picsum.photos/id/237/536/354" alt="" />
-              <h2 className='text-lg font-medium'>{ride?.user.fullname.firstname}</h2>
+              <h2 className='text-lg font-medium capitalize'>{ride?.user.fullname.firstname}</h2>
           </div>
           <h5 className='text-lg font-semibold'>2.2 KM</h5>
       </div>
