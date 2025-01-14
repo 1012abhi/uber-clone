@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { UserDatacontext } from '../context/UserContext'
 
-function userSignUp() {
+function UserSignUp() {
     const [firstname, setFirstname] = useState('')
     const [lastname, setLastname] = useState('')
     const [email, setEmail] = useState('')
@@ -103,4 +103,4 @@ function userSignUp() {
   )
 }
 
-export default userSignUp
+export default UserSignUp
