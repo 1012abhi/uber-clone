@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { UserDatacontext } from '../context/UserContext'
 
-function userLogin() {
+function UserLogin() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -79,4 +79,4 @@ function userLogin() {
   )
 }
 
-export default userLogin
+export default UserLogin

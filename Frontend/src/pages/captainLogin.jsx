@@ -6,7 +6,7 @@ import { CaptainDataContext } from '../context/CaptainContext'
 
 
 
-function captainLogin() {
+function CaptainLogin() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -83,4 +83,4 @@ function captainLogin() {
   )
 }
 
-export default captainLogin
+export default CaptainLogin
