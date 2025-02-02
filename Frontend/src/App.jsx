@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'   
 import Start from './pages/Start'
 import UserLogin from './pages/UserLogin'
-import UserSignUp from './pages/UserSignup'
+import UserSignup from './pages/UserSignup'
 import CaptainLogin from './pages/CaptainLogin'
 import CaptainSignup from './pages/CaptainSignup'
 import UserHome from './pages/UserHome'
@@ -21,7 +21,7 @@ const App = () => {
         <Route path='/' element={<Start />} />
         <Route path='/userlogin' element={<UserLogin/>} />
         <Route path='/riding' element={<Riding />}/>
-        <Route path='/usersignup' element={<UserSignUp />} />
+        <Route path='/usersignup' element={<UserSignup />} />
         
         <Route path='/captainlogin' element={<CaptainLogin />} />
         <Route path='/captain-riding' element={<CaptainRiding />}/>
